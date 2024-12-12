@@ -137,18 +137,196 @@ Exercícios realizados durante a disciplina 'Desenvolvimento de Aplicações', m
 
 :brain: _Calculadora:_ Crie uma calculadora simples que realiza operações aritméticas básicas (adição, subtração, multiplicação e divisão).
 ```
+import java.util.Scanner;
 
+public class CXalculadoraBase {
+
+    public static void main(String[] args) {
+        
+    
+
+    Scanner vdd = new Scanner(System.in);
+
+    System.out.println("digite o  primeiro numero");
+    double num1 = vdd.nextDouble();
+
+    System.out.println("didgite o segundo numero");
+    double num2 = vdd.nextDouble();
+
+    double resultado = 0;
+    boolean operacaoValida = true;
+
+
+    System.out.println("escolha uma operaçao");
+    int  operacoes = vdd.nextInt();
+   
+
+    switch(operacoes){
+    case 1 :
+    resultado = num1+num2;
+    break;
+    case 2 :
+    resultado = num1-num2;
+    break;
+    case 3 :
+    resultado = num1*num2;
+    break;
+    case 4 :
+    if(num2 !=0 ){
+    resultado = num1/num2;}
+    else{System.out.println("erro divisao por zero");
+operacaoValida= false;}
+    break;
+default:System.out.println("operaçao invalida");
+
+
+}
+if (operacaoValida)
+System.out.println("oresulatado da opercao "+ operacoes+ " e "+ resultado );
+vdd.close();
+    }}
 ```
 :brain: _Conversor de unidades:_ Desenvolva um programa que converta unidades de medida como temperatura (Celsius para Fahrenheit e vice-versa) e distância (metros para quilômetros e vice-versa).
 ```
+import java.util.Scanner;
+
+public class Conversor {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int escolha;
+
+        do {
+            System.out.println("Escolha uma conversão:");
+            System.out.println("1. Celsius para Fahrenheit");
+            System.out.println("2. Fahrenheit para Celsius");
+            System.out.println("3. Metros para Quilômetros");
+            System.out.println("4. Quilômetros para Metros");
+            System.out.println("0. Sair");
+            escolha = scanner.nextInt();
+
+            switch (escolha) {
+                case 1:
+                    System.out.print("Digite a temperatura em Celsius: ");
+                    double celsius = scanner.nextDouble();
+                    double fahrenheit = celsiusParaFahrenheit(celsius);
+                    System.out.println(celsius + "°C é igual a " + fahrenheit + "°F");
+                    break;
+                case 2:
+                    System.out.print("Digite a temperatura em Fahrenheit: ");
+                    fahrenheit = scanner.nextDouble();
+                    celsius = fahrenheitParaCelsius(fahrenheit);
+                    System.out.println(fahrenheit + "°F é igual a " + celsius + "°C");
+                    break;
+                case 3:
+                    System.out.print("Digite a distância em Metros: ");
+                    double metros = scanner.nextDouble();
+                    double quilometros = metrosParaQuilometros(metros);
+                    System.out.println(metros + " metros é igual a " + quilometros + " quilômetros");
+                    break;
+                case 4:
+                    System.out.print("Digite a distância em Quilômetros: ");
+                    quilometros = scanner.nextDouble();
+                    metros = quilometrosParaMetros(quilometros);
+                    System.out.println(quilometros + " quilômetros é igual a " + metros + " metros");
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+            }
+        } while (escolha != 0);
+
+        scanner.close();
+    }
+
+    public static double celsiusParaFahrenheit(double celsius) {
+        return (celsius * 9/5) + 32;
+    }
+
+    public static double fahrenheitParaCelsius(double fahrenheit) {
+        return (fahrenheit - 32) * 5/9;
+    }
+
+    public static double metrosParaQuilometros(double metros) {
+        return metros / 1000;
+    }
+
+    public static double quilometrosParaMetros(double quilometros) {
+        return quilometros * 1000;
+    }
+}
 
 ```
 :brain: _Jogo de adivinhação:_ Crie um jogo onde o computador escolhe um número aleatório entre 1 e 100 e o usuário tenta adivinhá-lo. O programa deve fornecer dicas como "é maior" ou "é menor".
 ```
+import java.util.Random;
+import java.util.Scanner;
+
+public class Jogo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        
+        int numeroAleatorio = random.nextInt(100) + 1; // Número entre 1 e 100
+        int tentativas = 0;
+        int palpite = 0;
+
+        System.out.println("Bem-vindo ao Jogo de Adivinhação!");
+        System.out.println("Tente adivinhar o número entre 1 e 100.");
+
+        while (palpite != numeroAleatorio) {
+            System.out.print("Digite seu palpite: ");
+            palpite = scanner.nextInt();
+            tentativas++;
+
+            if (palpite < numeroAleatorio) {
+                System.out.println("É maior! Tente novamente.");
+            } else if (palpite > numeroAleatorio) {
+                System.out.println("É menor! Tente novamente.");
+            } else {
+                System.out.println("Parabéns! Você adivinhou o número em " + tentativas + " tentativas.");
+            }
+        }
+
+        scanner.close();
+    }
+}
 
 ```
 :brain: _Gerador de senhas:_ Crie um programa onde o usuário informa a quantidade de caracteres e o programa gere uma senha aleatória que possua letras maiúsculas, letras minúsculas, números e caracteres especiais.
 ```
+import java.util.Random;
+import java.util.Scanner;
+
+public class Senha{
+    public static void main(String[] args) {
+
+        Scanner vds = new Scanner(System.in);
+        System.out.println("digite o  tamanho da senha ");
+        int tamanho = vds.nextInt();
+
+        String caracteres ="ABCDEFGHIJKLMLOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzéáç0123456789!?.,@#$%&*-_+=<>/^~`";
+
+        StringBuilder senha = new StringBuilder();
+        Random random = new Random();
+
+        for (int i =0;i < tamanho;i++){int indice = random.nextInt(caracteres.length());
+        
+        senha.append(caracteres.charAt(indice));}
+
+        System.out.println("senha gerada:" + senha.toString());
+
+        vds.close();
+
+
+        
+    }
+
+
+}
+    
 
 ```
 :brain: _SmartTv:_ Crie um sistema de uma SmartTv, onde o usuário pode realizar as seguintes tarefas:
